@@ -1,5 +1,6 @@
 package ru.serdyuk.entity;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @Table(name = "users_table")
+@Builder
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

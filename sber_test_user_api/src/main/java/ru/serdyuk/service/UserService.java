@@ -6,4 +6,6 @@ public interface UserService {
     UsersDto saveUser(UsersDto usersDto);
 
     void deleteUser(Integer userId);
+
+    UsersDto findByLogin(String login);
 }

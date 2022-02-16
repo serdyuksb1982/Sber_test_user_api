@@ -13,6 +13,7 @@ public class UsersConverter {
         users.setEmail(usersDto.getEmail());
         users.setName(usersDto.getName());
         users.setLogin(usersDto.getLogin());
+        users.setBirthday(usersDto.getBirthday());
         return users;
     }
 
@@ -22,6 +23,7 @@ public class UsersConverter {
                 .email(users.getEmail())
                 .login(users.getLogin())
                 .name(users.getName())
+                .birthday(users.getBirthday())
                 .build();
     }
 

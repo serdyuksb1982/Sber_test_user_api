@@ -12,22 +12,25 @@ public class DefaultUsersService implements UserService{
 
     private final UserRepository userRepository;
 
-
+    private final UsersConverter usersConverter;
 
     @Override
     public UsersDto saveUser(UsersDto usersDto) {
-        Users users = new Users();
-        users.setId(usersDto.getId());
-        users.setLogin(usersDto.getLogin());
-        users.setName(usersDto.getName());
-        users.setEmail(usersDto.getEmail());
-        users.setBirthday(users.getBirthday());
-
-        return userRepository.save(users);
+        Users saveUser = userRepository.save(usersConverter.fromDtoToEntity(usersDto));
+        return usersConverter.fromEntityToDto(saveUser);
     }
 
     @Override
     public void deleteUser(Integer userId) {
+        userRepository.deleteById(userId);
+    }
 
+    @Override
+    public UsersDto findByLogin(String login) {
+        Users users = userRepository.findByLogin(login);
+        if(users != null) {
+            return usersConverter.fromEntityToDto(users);
+        }
+        return null;
     }
 }
