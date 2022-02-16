@@ -1,4 +1,12 @@
-spring.datasource.url=jdbc:mysql://localhost:3306/users_management?useUnicode=true&serverTimezone=UTC&useSSL=true&verifyServerCertificate=false
-spring.datasource.username=root
-spring.datasource.password=as07091982
-spring.datasource.platform=mysql
+create database users_management;
+
+\c users_management;
+
+create table users_table
+(
+id int auto_increment not null primary key,
+name varchar(50),
+login varchar(50),
+email varchar(50),
+birthday varchar(15)
+);
