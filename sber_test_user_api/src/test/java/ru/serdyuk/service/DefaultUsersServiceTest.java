@@ -28,7 +28,7 @@ class DefaultUsersServiceTest {
         users.setBirthday("01.01.2021");
 
         when(usersRepository.save(any())).thenReturn(users);
-        usersService = new DefaultUsersService(usersRepository, usersConverter);
+        usersService = new UsersService(usersRepository, usersConverter);
     }
 
     @SneakyThrows

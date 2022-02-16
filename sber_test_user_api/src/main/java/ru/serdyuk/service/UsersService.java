@@ -14,7 +14,7 @@ import static java.util.Objects.isNull;
 
 @Service
 @AllArgsConstructor
-public class DefaultUsersService implements UserService{
+public class UsersService implements UserService{
 
     private final UserRepository userRepository;
 
