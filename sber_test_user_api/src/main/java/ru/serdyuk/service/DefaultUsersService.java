@@ -7,6 +7,9 @@ import ru.serdyuk.entity.Users;
 import ru.serdyuk.exception.ValidationException;
 import ru.serdyuk.repository.UserRepository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static java.util.Objects.isNull;
 
 @Service
@@ -19,11 +22,6 @@ public class DefaultUsersService implements UserService{
 
     @Override
     public UsersDto saveUser(UsersDto usersDto) {
-        try {
-            validateUserDto(usersDto);
-        } catch (ValidationException e) {
-            e.printStackTrace();
-        }
         Users saveUser = userRepository.save(usersConverter.fromDtoToEntity(usersDto));
         return usersConverter.fromEntityToDto(saveUser);
     }
@@ -40,6 +38,14 @@ public class DefaultUsersService implements UserService{
             return usersConverter.fromEntityToDto(users);
         }
         return null;
+    }
+
+    @Override
+    public List<UsersDto> findAll() {
+        return userRepository.findAll()
+                .stream()
+                .map(usersConverter::fromEntityToDto)
+                .collect(Collectors.toList());
     }
 
     private void validateUserDto(UsersDto usersDto) throws ValidationException {
