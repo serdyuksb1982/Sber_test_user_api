@@ -4,10 +4,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SberTestUserApiApplication {
+public class UserApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SberTestUserApiApplication.class, args);
+		SpringApplication app = new  SpringApplication(UserApiApplication.class);
+		app.setLazyInitialization(true);
+		app.run(args);
 	}
 
 }
