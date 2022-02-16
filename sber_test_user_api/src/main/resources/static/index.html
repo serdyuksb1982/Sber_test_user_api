@@ -1,10 +1,128 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>My API</title>
+    <style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 2px solid #dddddd;
+  text-align: center;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
 </head>
 <body>
+
+<h2 align="center">SBER Test Java Junior</h2>
+
+<table id="usersList">
+
+</table>
+
+<form action="#">
+    <br>
+    <br>
+    <input id="user_name" placeholder="User name" name="uname" pattern="[a-zA-Z0-9]+" minlength="2" maxlength="25">
+    <input id="user_login" placeholder="User login">
+    <input id="user_email" placeholder="User email" required pattern="\S+@[a-z]+.[a-z]+">
+    <input id="user_birthday" placeholder="User birthday" type="date" pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}">
+
+    <button onclick="createUser()">Create user</button>
+</form>
+<br>
+<br>
+<input id="search_field">
+<button onclick="searchByLogin()">Search by your login</button>
+
+<script>
+
+    function searchByLogin() {
+        var login = document.getElementById("search_field").value;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if(this.readyState == 4 && this.status == 200) {
+               var user = JSON.parse(this.responseText);
+               var html = '<tr>\n' +
+                   '        <th>User id</th>\n' +
+                   '        <th>User name</th>\n' +
+                   '        <th>User login</th>\n' +
+                   '        <th>User email</th>\n' +
+                   '        <th>User birthday</th>\n' +
+                   '        <th>Delete</th>\n' +
+                   '     </tr>';
+               html = html + '<tr><td>' + user.id + '</td>\n' +
+                    '           <td>' + user.name + '</td>\n' +
+                    '           <td>' + user.login + '</td>\n' +
+                    '           <td>' + user.email + '</td>\n' +
+                    '           <td>' + user.birthday + '</td>' +
+                    '           <td><button onclick="deleteUser('+user.id+')">Delete</button></td></tr>';
+
+               document.getElementById("usersList").innerHTML = html;
+            }
+        };
+        xhttp.open("GET", "http://localhost:8080/users/findByLogin?login="+login, true);
+        xhttp.send();
+    }
+
+    function deleteUser(userId) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("DELETE", "http://localhost:8080/users/delete/" + userId, true);
+        xhttp.send();
+    }
+
+    function createUser() {
+        var userName = document.getElementById("user_name").value;
+        var userLogin = document.getElementById("user_login").value;
+        var userEmail = document.getElementById("user_email").value;
+        var userBirthday = document.getElementById("user_birthday").value;
+
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("POST", "http://localhost:8080/users/save");
+        xmlhttp.setRequestHeader("Content-Type", "application/json");
+        xmlhttp.send(JSON.stringify({name: userName, login: userLogin, email: userEmail, birthday: userBirthday}));
+
+        loadUsers();
+    }
+
+    function loadUsers() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if(this.readyState == 4 && this.status == 200) {
+               var users = JSON.parse(this.responseText);
+               var html = '<tr>\n' +
+                   '        <th>USER ID</th>\n' +
+                   '        <th>USER NAME</th>\n' +
+                   '        <th>USER LOGIN</th>\n' +
+                   '        <th>USER EMAIL</th>\n' +
+                   '        <th>USER BIRTHDAY</th>\n' +
+                   '        <th>DELETE USER</th>\n' +
+                   '     </tr>';
+               for(var i=0; i<users.length; i++) {
+                    var user = users[i];
+                    console.log(user);
+                    html = html + '<tr><td>' + user.id + '</td>\n' +
+                    '           <td>' + user.name + '</td>\n' +
+                    '           <td>' + user.login + '</td>\n' +
+                    '           <td>' + user.email + '</td>' +
+                    '           <th>' + user.birthday + '</td>' +
+                    '           <td><button onclick="deleteUser('+user.id+')">Delete</button></td></tr>';
+               }
+               document.getElementById("usersList").innerHTML = html;
+            }
+        };
+        xhttp.open("GET", "http://localhost:8080/users/findAll", true);
+        xhttp.send();
+    }
+    loadUsers();
+</script>
 
 </body>
 </html>

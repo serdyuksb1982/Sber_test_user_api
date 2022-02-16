@@ -3,14 +3,10 @@ package ru.serdyuk.service;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 import ru.serdyuk.dto.UsersDto;
 import ru.serdyuk.entity.Users;
-import ru.serdyuk.exception.ValidationException;
 import ru.serdyuk.repository.UserRepository;
-
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;

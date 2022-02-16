@@ -21,7 +21,8 @@ public class DefaultUsersService implements UserService{
     private final UsersConverter usersConverter;
 
     @Override
-    public UsersDto saveUser(UsersDto usersDto) {
+    public UsersDto saveUser(UsersDto usersDto) throws ValidationException{
+        validateUserDto(usersDto);
         Users saveUser = userRepository.save(usersConverter.fromDtoToEntity(usersDto));
         return usersConverter.fromEntityToDto(saveUser);
     }
