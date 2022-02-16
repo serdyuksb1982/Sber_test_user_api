@@ -4,7 +4,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.serdyuk.dto.UsersDto;
 import ru.serdyuk.entity.Users;
+import ru.serdyuk.exception.ValidationException;
 import ru.serdyuk.repository.UserRepository;
+
+import static java.util.Objects.isNull;
 
 @Service
 @AllArgsConstructor
@@ -16,6 +19,11 @@ public class DefaultUsersService implements UserService{
 
     @Override
     public UsersDto saveUser(UsersDto usersDto) {
+        try {
+            validateUserDto(usersDto);
+        } catch (ValidationException e) {
+            e.printStackTrace();
+        }
         Users saveUser = userRepository.save(usersConverter.fromDtoToEntity(usersDto));
         return usersConverter.fromEntityToDto(saveUser);
     }
@@ -32,5 +40,14 @@ public class DefaultUsersService implements UserService{
             return usersConverter.fromEntityToDto(users);
         }
         return null;
+    }
+
+    private void validateUserDto(UsersDto usersDto) throws ValidationException {
+        if(isNull(usersDto)) {
+            throw new ValidationException("Validation Exception, user is NULL!");
+        }
+        if(isNull(usersDto.getLogin())|| usersDto.getLogin().isEmpty() ) {
+            throw new ValidationException("Your login is empty.");
+        }
     }
 }
