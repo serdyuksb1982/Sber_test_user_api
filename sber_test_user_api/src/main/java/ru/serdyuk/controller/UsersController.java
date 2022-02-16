@@ -1,12 +1,11 @@
 package ru.serdyuk.controller;
 
 import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.java.Log;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.serdyuk.dto.UsersDto;
-import ru.serdyuk.exception.ValidationException;
+import ru.serdyuk.exception.Validation;
 import ru.serdyuk.service.UserService;
 
 import javax.validation.Valid;
@@ -24,7 +23,7 @@ public class UsersController {
 
 
     @PostMapping("/save")
-    public UsersDto saveUsers(@Valid @RequestBody UsersDto usersDto) throws ValidationException {
+    public UsersDto saveUsers(@Valid @RequestBody UsersDto usersDto) throws Validation {
         log.info("Handling save users: " + usersDto);
         return usersService.saveUser(usersDto);
     }

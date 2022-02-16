@@ -11,7 +11,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class DefaultUsersServiceTest {
+class UsersServiceTest {
 
     private UserService usersService;
     Users users;

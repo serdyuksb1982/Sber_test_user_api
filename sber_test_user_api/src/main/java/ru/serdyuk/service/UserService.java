@@ -1,12 +1,12 @@
 package ru.serdyuk.service;
 
 import ru.serdyuk.dto.UsersDto;
-import ru.serdyuk.exception.ValidationException;
+import ru.serdyuk.exception.Validation;
 
 import java.util.List;
 
 public interface UserService {
-    UsersDto saveUser(UsersDto usersDto) throws ValidationException;
+    UsersDto saveUser(UsersDto usersDto) throws Validation;
 
     void deleteUser(Integer userId);
 

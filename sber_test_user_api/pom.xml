@@ -56,7 +56,9 @@
 	<build>
 		<plugins>
 			<plugin>
+				<!--suppress MavenModelInspection -->
 				<groupId>org.springframework.boot</groupId>
+				<!--suppress MavenModelInspection -->
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<excludes>

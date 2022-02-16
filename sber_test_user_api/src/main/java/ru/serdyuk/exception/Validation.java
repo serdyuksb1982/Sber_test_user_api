@@ -1,9 +1,9 @@
 package ru.serdyuk.exception;
 
-public class ValidationException extends Exception{
+public class Validation extends Exception{
     private String message;
 
-    public ValidationException(String message) {
+    public Validation(String message) {
 
     }
 
