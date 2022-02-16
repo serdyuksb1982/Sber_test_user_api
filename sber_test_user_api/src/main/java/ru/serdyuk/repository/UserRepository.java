@@ -1,4 +1,7 @@
 package ru.serdyuk.repository;
 
-public interface UserRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import ru.serdyuk.entity.Users;
+
+public interface UserRepository extends JpaRepository<Users, Integer> {
 }
